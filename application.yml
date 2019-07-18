@@ -1,23 +1,24 @@
 server:
-  port: 8085
+  port: 8087
 
 logging.file: logs/application.log
 logging:
   level:
-      org:
-        springframework:
-          web: DEBUG
-        hibernate: ERROR
+    org:
+      springframework:
+        web: DEBUG
+      hibernate: ERROR
 
 spring:
   datasource:
-    url: jdbc:h2:file:./db/testdb
+    url: jdbc:h2:file:./db/parking
     driver-class-name: org.h2.Driver
     username: sa
     password: 123456
   jpa:
     hibernate:
       ddl-auto: none
+    show-sql: true
   h2:
     console:
       enabled: true
