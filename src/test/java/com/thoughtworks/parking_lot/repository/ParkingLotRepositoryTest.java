@@ -101,4 +101,18 @@ public class ParkingLotRepositoryTest {
                         "}"));
     }
 
+    @Test
+    @Transactional
+    public void should_return_the_parking_lot_when_query_a_parking_lot_by_name() throws Exception {
+        mockMvc.perform(get("/parking-lots?name=parkingLotOne"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("[{\n" +
+                        "    \"id\": 1,\n" +
+                        "    \"name\": \"parkingLotOne\",\n" +
+                        "    \"capacity\": 100,\n" +
+                        "    \"position\": \"positionOne\"\n" +
+                        "}]"));
+    }
+
 }
