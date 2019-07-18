@@ -16,7 +16,13 @@ public class ParkingLotController {
 
     @PostMapping("/parking-lots")
     public ResponseEntity createParkingLots(@RequestBody ParkingLot parkingLot) {
-        ParkingLot newParkingLot = parkingLotRepository.save(parkingLot);
-        return ResponseEntity.ok(newParkingLot);
+        try{
+            ParkingLot newParkingLot = parkingLotRepository.saveAndFlush(parkingLot);
+            return ResponseEntity.ok(newParkingLot);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
     }
+
+
 }

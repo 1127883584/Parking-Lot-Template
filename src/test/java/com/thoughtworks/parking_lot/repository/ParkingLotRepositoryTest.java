@@ -37,13 +37,27 @@ public class ParkingLotRepositoryTest {
         mockMvc.perform(post("/parking-lots")
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content("{\n" +
-                "    \"name\": \"parkingLotOne\",\n" +
+                "    \"name\": \"parkingLotTwo\",\n" +
                 "    \"capacity\": 100,\n" +
-                "    \"position\": \"positionOne\"\n" +
+                "    \"position\": \"positionTwo\"\n" +
                 "}"))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.name").value("parkingLotOne"));
+        .andExpect(jsonPath("$.name").value("parkingLotTwo"));
+    }
+
+    @Test
+    @Transactional
+    public void should_return_error_when_add_a_same_name_parking_lot() throws Exception {
+        mockMvc.perform(post("/parking-lots")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content("{\n" +
+                        "    \"name\": \"parkingLotOne\",\n" +
+                        "    \"capacity\": 100,\n" +
+                        "    \"position\": \"positionOne\"\n" +
+                        "}"))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
     }
 
 
