@@ -1,6 +1,7 @@
 package com.thoughtworks.parking_lot.repository;
 
 import com.thoughtworks.parking_lot.model.ParkingLot;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -20,8 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -31,6 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ParkingLotRepositoryTest {
     @Autowired
     private MockMvc mockMvc;
+
+    private List<ParkingLot> parkingLots = new ArrayList<>();
 
     @Test
     @Transactional
@@ -67,6 +69,22 @@ public class ParkingLotRepositoryTest {
         mockMvc.perform(delete("/parking-lots/1"))
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @Transactional
+    public void should_return_all_the_when_delete_a_parking_lot() throws Exception {
+        mockMvc.perform(get("/parking-lots"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("[\n" +
+                        "    {\n" +
+                        "        \"id\": 1,\n" +
+                        "        \"name\": \"parkingLotOne\",\n" +
+                        "        \"capacity\": 100,\n" +
+                        "        \"position\": \"positionOne\"\n" +
+                        "    }\n" +
+                        "]"));
     }
 
 }

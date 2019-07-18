@@ -25,12 +25,17 @@ public class ParkingLotController {
     }
 
     @DeleteMapping("/parking-lots/{id}")
-    public ResponseEntity deleteCompany(@PathVariable int id){
-//        List<ParkingLot> afterDeleteParkingLots = parkingLotRepository.findAll().stream()
-//                .filter(element -> element.getId() != id)
-//                .collect(Collectors.toList());
+    public ResponseEntity deleteParkingLots(@PathVariable int id){
         int statusCode = parkingLotRepository.deleteAllById(id);
         return ResponseEntity.ok(statusCode);
+    }
+
+    @GetMapping("/parking-lots")
+    public ResponseEntity getParkingLots(@RequestParam(defaultValue = "all") String parkingLotName){
+        if (!parkingLotName.equals("all")) {
+            return ResponseEntity.ok(parkingLotRepository.findAllByName(parkingLotName));
+        }
+        return ResponseEntity.ok(parkingLotRepository.findAll());
     }
 
 
