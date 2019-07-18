@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -60,5 +61,12 @@ public class ParkingLotRepositoryTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    @Transactional
+    public void should_return_the_success_code_when_delete_a_parking_lot() throws Exception {
+        mockMvc.perform(delete("/parking-lots/1"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 
 }
