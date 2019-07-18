@@ -57,6 +57,7 @@ public class ParkingLotController {
 
     @PutMapping("/parking-lots/{id}")
     public ResponseEntity updateParkingLot(@PathVariable int id, @RequestBody ParkingLot parkingLot){
+        parkingLot.setId(id);
         ParkingLot updateParkingLot = parkingLotRepository.saveAndFlush(parkingLot);
         return ResponseEntity.ok(updateParkingLot);
     }

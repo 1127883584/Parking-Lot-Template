@@ -129,4 +129,24 @@ public class ParkingLotRepositoryTest {
                         "}]"));
     }
 
+    @Test
+    @Transactional
+    public void should_return_updated_parking_lot_when_update_a_parking_lot() throws Exception {
+        mockMvc.perform(put("/parking-lots/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content("{\n" +
+                        "    \"name\": \"parkingLotUpdate\",\n" +
+                        "    \"capacity\": 1000,\n" +
+                        "    \"position\": \"positionUpdate\"\n" +
+                        "}"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\n" +
+                        "    \"id\": 1,\n" +
+                        "    \"name\": \"parkingLotUpdate\",\n" +
+                        "    \"capacity\": 1000,\n" +
+                        "    \"position\": \"positionUpdate\"\n" +
+                        "}"));
+    }
+
 }
