@@ -115,4 +115,18 @@ public class ParkingLotRepositoryTest {
                         "}]"));
     }
 
+    @Test
+    @Transactional
+    public void should_return_the_parking_lots_when_query_parking_lots_by_pagination() throws Exception {
+        mockMvc.perform(get("/parking-lots?page=1&pageSize=2"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("[{\n" +
+                        "    \"id\": 1,\n" +
+                        "    \"name\": \"parkingLotOne\",\n" +
+                        "    \"capacity\": 100,\n" +
+                        "    \"position\": \"positionOne\"\n" +
+                        "}]"));
+    }
+
 }
