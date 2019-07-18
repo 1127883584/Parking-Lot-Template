@@ -8,4 +8,5 @@ import java.util.List;
 public interface ParkingLotRepository extends JpaRepository<ParkingLot, String> {
     int deleteAllById(int id);
     List<ParkingLot> findAllByName(String name);
+    ParkingLot findById(int id);
 }

@@ -73,7 +73,7 @@ public class ParkingLotRepositoryTest {
 
     @Test
     @Transactional
-    public void should_return_all_the_when_delete_a_parking_lot() throws Exception {
+    public void should_return_all_parking_lot_when_delete_a_parking_lot() throws Exception {
         mockMvc.perform(get("/parking-lots"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -85,6 +85,20 @@ public class ParkingLotRepositoryTest {
                         "        \"position\": \"positionOne\"\n" +
                         "    }\n" +
                         "]"));
+    }
+
+    @Test
+    @Transactional
+    public void should_return_the_parking_lot_when_query_a_parking_lot_by_id() throws Exception {
+        mockMvc.perform(get("/parking-lots/1"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\n" +
+                        "    \"id\": 1,\n" +
+                        "    \"name\": \"parkingLotOne\",\n" +
+                        "    \"capacity\": 100,\n" +
+                        "    \"position\": \"positionOne\"\n" +
+                        "}"));
     }
 
 }
