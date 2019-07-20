@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +42,7 @@ public class ParkingLotController {
             return ResponseEntity.ok(parkingLotRepository.findAllByName(parkingLotName));
         }
         if (page > 0 && pageSize > 0) {
-            Pageable pageable = PageRequest.of(page - 1, pageSize - 1);
+            Pageable pageable = PageRequest.of(page - 1, pageSize);
             Page<ParkingLot> parkingLots =  parkingLotRepository.findAll(pageable);
             return ResponseEntity.ok(parkingLots.getContent());
         }

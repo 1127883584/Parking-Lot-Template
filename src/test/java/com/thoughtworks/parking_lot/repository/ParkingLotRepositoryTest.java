@@ -32,8 +32,6 @@ public class ParkingLotRepositoryTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private List<ParkingLot> parkingLots = new ArrayList<>();
-
     @Test
     @Transactional
     public void should_return_the_new_parking_lot_when_add_a_new_parking_lot() throws Exception {
