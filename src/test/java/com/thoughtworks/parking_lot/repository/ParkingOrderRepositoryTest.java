@@ -86,6 +86,6 @@ public class ParkingOrderRepositoryTest {
                         "}"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().json(null));
+                .andExpect(content().string("The parking lot is full"));
     }
 }

@@ -20,7 +20,10 @@ public class ParkingOrderController {
     @PostMapping("/parking-orders")
     public ResponseEntity createParkingOrders(@RequestBody ParkingOrder parkingOrder) {
         ParkingOrder newParkingOrder = parkingOrderService.createParkingOrder(parkingOrder);
-        return ResponseEntity.ok(newParkingOrder);
+        if (newParkingOrder != null){
+            return ResponseEntity.ok(newParkingOrder);
+        }
+        return ResponseEntity.ok("The parking lot is full");
     }
 
     @PutMapping("/parking-orders/{id}")
