@@ -1,14 +1,16 @@
 package com.thoughtworks.parking_lot.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
+@Entity
 public class ParkingOrder {
     @Id
     @GeneratedValue
     private int id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "company")
+    @OneToOne
+    @NotNull
     private ParkingLot parkingLot;
 
     @Column(nullable = false)
@@ -17,7 +19,6 @@ public class ParkingOrder {
     @Column(nullable = false)
     private long startTime;
 
-    @Column(nullable = false)
     private long endTime;
 
     @Column(nullable = false)
@@ -28,6 +29,12 @@ public class ParkingOrder {
         this.carNumber = carNumber;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.status = status;
+    }
+
+    public ParkingOrder(ParkingLot parkingLot, String carNumber, long startTime, String status) {
+        this.parkingLot = parkingLot;
+        this.carNumber = carNumber;
         this.status = status;
     }
 
